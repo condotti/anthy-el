@@ -160,12 +160,13 @@
 (defvar anthy-last-context-id 1)
 
 ;; From skk-macs.el From viper-util.el.  Welcome!
+;; Fixed old-style backquote syntax (2020-08-27 condotti)
 (defmacro anthy-deflocalvar (var default-value &optional documentation)
-  (` (progn
-       (defvar (, var) (, default-value)
-	 (, (format "%s\n\(buffer local\)" documentation)))
-       (make-variable-buffer-local '(, var))
-       )))
+  `(progn
+     (defvar ,var ,default-value
+       ,(format "%s\n\(buffer local\)" documentation))
+     (make-variable-buffer-local (quote ,var))
+     ))
 
 ;; buffer local variables
 (anthy-deflocalvar anthy-context-id nil "コンテキストのid")
